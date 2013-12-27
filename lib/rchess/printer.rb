@@ -1,11 +1,7 @@
 module Rchess
   class Printer
     SEPARATOR = "   + - + - + - + - + - + - + - + - +".freeze
-    RANKS = [8, 7, 6, 5, 4, 3, 2, 1].freeze
-    RANK_TO_FILES = {
-      8 => (0..7),   7 => (8..15),  6 => (16..23), 5 => (24..31),
-      4 => (32..39), 3 => (40..47), 2 => (48..55), 1 => (56..63)
-    }.freeze
+    RANKS = %w(8 7 6 5 4 3 2 1).freeze
 
     def initialize(out=$stdout)
       @out = out
@@ -30,7 +26,7 @@ module Rchess
       grid_top = SEPARATOR + newline
 
       grid_body = RANKS.map { |rank|
-        "#{rank}  | " + board_rank(board, rank) + " |" + newline
+        "#{rank}  | " + row_from_rank(board, rank) + " |" + newline
       }.join(SEPARATOR + newline)
 
       grid_bottom = SEPARATOR + newline +
@@ -39,8 +35,10 @@ module Rchess
       grid_top + grid_body + grid_bottom
     end
 
-    def board_rank(board, rank_num)
-      board[RANK_TO_FILES[rank_num]].join(" | ")
+    def row_from_rank(board, rank)
+      ("a".."h").map { |file| rank + file }.map do |pos|
+        board[pos]
+      end.join(" | ")
     end
   end
 end

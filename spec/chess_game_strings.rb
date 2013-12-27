@@ -18,9 +18,9 @@ module ChessGameStrings
    + - + - + - + - + - + - + - + - +
 3  |   |   |   |   |   |   |   |   |
    + - + - + - + - + - + - + - + - +
-2  | P | P | P | P | P | P | P | P |
+2  | p | p | p | p | p | p | p | p |
    + - + - + - + - + - + - + - + - +
-1  | R | N | B | K | Q | B | N | R |
+1  | r | n | b | k | q | b | n | r |
    + - + - + - + - + - + - + - + - +
      a   b   c   d   e   f   g   h
     board
