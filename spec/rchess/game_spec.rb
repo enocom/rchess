@@ -14,10 +14,4 @@ describe Rchess::Game do
     expect(fake_stdout).to receive(:print).with(user_prompt)
     game.play
   end
-
-  it "accepts user input to move pieces" do
-  end
-
-  it "quits gracefully" do
-  end
 end
