@@ -12,6 +12,10 @@ module Rchess
       @out.print transform_to_grid(board)
     end
 
+    def prompt_user
+      @out.print newline + "Enter a move: "
+    end
+
     private
 
     def clear_screen

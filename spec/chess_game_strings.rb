@@ -25,4 +25,8 @@ module ChessGameStrings
      a   b   c   d   e   f   g   h
     board
   end
+
+  def user_prompt
+    "\nEnter a move: "
+  end
 end

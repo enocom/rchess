@@ -7,6 +7,7 @@ module Rchess
 
     def play
       @printer.print_board @board
+      @printer.prompt_user
     end
   end
 end
