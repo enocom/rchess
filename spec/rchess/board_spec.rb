@@ -2,7 +2,10 @@ require "spec_helper"
 
 describe Rchess::Board do
   include ChessGameStrings
-  PIECE_NAMES = [:rook, :knight, :bishop, :king, :queen, :bishop, :knight, :rook]
+  PIECE_NAMES = [
+    :rook, :knight, :bishop, :king,
+    :queen, :bishop, :knight, :rook
+  ]
 
   let(:board) { Rchess::Board.new }
 
@@ -30,10 +33,11 @@ describe Rchess::Board do
     end
 
     def expect_pieces_are_placed_correctly_for_rank(rank, lettercase)
-      ("a".."h").map { |file| rank + file }.zip(PIECE_NAMES).each do |pos, piece|
-        expect(board[pos].name).to eq piece
-        expect(board[pos].lettercase).to eq lettercase
-      end
+      ("a".."h").map { |file| rank + file }
+        .zip(PIECE_NAMES).each do |pos, piece|
+          expect(board[pos].name).to eq piece
+          expect(board[pos].lettercase).to eq lettercase
+        end
     end
 
     def expect_pawns_are_placed_correctly_for_rank(rank, lettercase)
