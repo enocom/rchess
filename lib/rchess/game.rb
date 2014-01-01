@@ -6,6 +6,12 @@ module Rchess
       @input = input
     end
 
+    def play
+      play_one_turn
+
+      loop { next_turn }
+    end
+
     def play_one_turn
       @printer.print_board @board
       @printer.prompt_user
