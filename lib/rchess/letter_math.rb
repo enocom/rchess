@@ -1,8 +1,9 @@
 module Rchess
   module LetterMath
+    LETTERS = %w(a b c d e f g h)
+
     def rotate_letter(letter, offset)
-      letters = %w(a b c d e f g h)
-      index_of_current_letter = letters.index(letter)
+      index_of_current_letter = LETTERS.index(letter)
       rotated_index = index_of_current_letter + offset
 
       if rotated_index > 7
@@ -11,7 +12,7 @@ module Rchess
         rotated_index = 8 + rotated_index
       end
 
-      letters[rotated_index]
+      LETTERS[rotated_index]
     end
   end
 end
