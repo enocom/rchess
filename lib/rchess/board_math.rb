@@ -1,5 +1,5 @@
 module Rchess
-  module LetterMath
+  module BoardMath
     LETTERS = %w(a b c d e f g h)
 
     def rotate_letter(letter, offset)

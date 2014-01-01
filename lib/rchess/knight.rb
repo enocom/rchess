@@ -1,8 +1,8 @@
-require "rchess/letter_math"
+require "rchess/board_math"
 
 module Rchess
   class Knight
-    include Rchess::LetterMath
+    include Rchess::BoardMath
     attr_reader :name, :lettercase
 
     def initialize(lettercase=:uppercase)
