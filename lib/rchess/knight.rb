@@ -16,25 +16,20 @@ module Rchess
     end
 
     def can_move_to_position?(start_pos, end_pos)
-      up_up_left?(start_pos, end_pos) ||
-        up_up_right?(start_pos, end_pos) ||
-        up_left_left?(start_pos, end_pos) ||
-        up_right_right?(start_pos, end_pos) ||
-        down_left_left?(start_pos, end_pos) ||
-        down_right_right?(start_pos, end_pos) ||
-        down_down_left?(start_pos, end_pos) ||
-        down_down_right?(start_pos, end_pos)
+      [
+        [2, -1], [2, 1], [1, -2], [1, 2],
+        [-1, -2], [-1, 2], [-2, -1], [-2, 1]
+      ].map do |dy, dx|
+        rank_with_offset_matches?(start_pos, end_pos, dy) &&
+          file_with_offset_matches?(start_pos, end_pos, dx)
+      end.include? true
     end
 
     private
-    def rotate_letter(letter, direction, offset)
+    def rotate_letter(letter, offset)
       letters = %w(a b c d e f g h)
       index_of_current_letter = letters.index(letter)
-      rotated_index = if direction == :right
-                        index_of_current_letter + offset
-                      else
-                        index_of_current_letter - offset
-                      end
+      rotated_index = index_of_current_letter + offset
 
       if rotated_index > 7
         rotated_index = rotated_index - 8
@@ -49,48 +44,8 @@ module Rchess
       (start_pos[0].to_i + rank_offset) == end_pos[0].to_i
     end
 
-    def file_with_offset_matches?(start_pos, end_pos, file_offset, direction)
-      rotate_letter(start_pos[1], direction, file_offset) == end_pos[1]
-    end
-
-    def up_up_left?(start_pos, end_pos)
-      rank_with_offset_matches?(start_pos, end_pos, 2) &&
-        file_with_offset_matches?(start_pos, end_pos, 1, :left)
-    end
-
-    def up_up_right?(start_pos, end_pos)
-      rank_with_offset_matches?(start_pos, end_pos, 2) &&
-        file_with_offset_matches?(start_pos, end_pos, 1, :right)
-    end
-
-    def up_left_left?(start_pos, end_pos)
-      rank_with_offset_matches?(start_pos, end_pos, 1) &&
-        file_with_offset_matches?(start_pos, end_pos, 2, :left)
-    end
-
-    def up_right_right?(start_pos, end_pos)
-      rank_with_offset_matches?(start_pos, end_pos, 1) &&
-        file_with_offset_matches?(start_pos, end_pos, 2, :right)
-    end
-
-    def down_left_left?(start_pos, end_pos)
-      rank_with_offset_matches?(start_pos, end_pos, -1) &&
-        file_with_offset_matches?(start_pos, end_pos, 2, :left)
-    end
-
-    def down_right_right?(start_pos, end_pos)
-      rank_with_offset_matches?(start_pos, end_pos, -1) &&
-        file_with_offset_matches?(start_pos, end_pos, 2, :right)
-    end
-
-    def down_down_left?(start_pos, end_pos)
-      rank_with_offset_matches?(start_pos, end_pos, -2) &&
-        file_with_offset_matches?(start_pos, end_pos, 1, :left)
-    end
-
-    def down_down_right?(start_pos, end_pos)
-      rank_with_offset_matches?(start_pos, end_pos, -2) &&
-        file_with_offset_matches?(start_pos, end_pos, 1, :right)
+    def file_with_offset_matches?(start_pos, end_pos, file_offset)
+      rotate_letter(start_pos[1], file_offset) == end_pos[1]
     end
   end
 end
