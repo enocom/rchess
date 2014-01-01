@@ -9,5 +9,9 @@ module Rchess
     def to_s
       " "
     end
+
+    def letter
+      "_"
+    end
   end
 end
