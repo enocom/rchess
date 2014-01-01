@@ -11,10 +11,10 @@ describe Rchess::Knight do
 
   describe "movement on the board" do
     let(:knight) { Rchess::Knight.new(:uppercase) }
-    let(:start_position) { "5d" }
+    let(:start_position) { "d5" }
 
     it "recognizes illegal moves" do
-      illegal_move = "5c"
+      illegal_move = "c5"
       expect(
         knight.can_move_to_position? start_position, illegal_move
       ).to eq false
@@ -22,28 +22,28 @@ describe Rchess::Knight do
 
     describe "moving upward" do
       it "can move one up and two left" do
-        end_position = "6b"
+        end_position = "b6"
         expect(
           knight.can_move_to_position? start_position, end_position
         ).to eq true
       end
 
       it "can move one up and two right" do
-        end_position = "6f"
+        end_position = "f6"
         expect(
           knight.can_move_to_position? start_position, end_position
         ).to eq true
       end
 
       it "can move two up and one left" do
-        end_position = "7c"
+        end_position = "c7"
         expect(
           knight.can_move_to_position? start_position, end_position
         ).to eq true
       end
 
       it "can move two up and one right" do
-        end_position = "7e"
+        end_position = "e7"
         expect(
           knight.can_move_to_position? start_position, end_position
         ).to eq true
@@ -52,28 +52,28 @@ describe Rchess::Knight do
 
     describe "moving downward" do
       it "can move one down and two left" do
-        end_position = "4b"
+        end_position = "b4"
         expect(
           knight.can_move_to_position? start_position, end_position
         ).to eq true
       end
 
       it "can move one down and two right" do
-        end_position = "4f"
+        end_position = "f4"
         expect(
           knight.can_move_to_position? start_position, end_position
         ).to eq true
       end
 
       it "can move two down and one left" do
-        end_position = "3c"
+        end_position = "c3"
         expect(
           knight.can_move_to_position? start_position, end_position
         ).to eq true
       end
 
       it "can move two down and one right" do
-        end_position = "3e"
+        end_position = "e3"
         expect(
           knight.can_move_to_position? start_position, end_position
         ).to eq true
