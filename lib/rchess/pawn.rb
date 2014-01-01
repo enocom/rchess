@@ -8,6 +8,10 @@ module Rchess
     end
 
     def to_s
+      letter
+    end
+
+    def letter
       @lettercase == :uppercase ? "P" : "p"
     end
   end
