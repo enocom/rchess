@@ -47,6 +47,12 @@ module Rchess
       @storage[index_from_file_and_rank(file, rank)]
     end
 
+    def commit_move(move)
+      piece_letter, new_position = move[0], move[1..-1]
+      piece_to_move = find_implied_piece(piece_letter, new_position)
+      move_piece(piece_to_move, new_position)
+    end
+
     def find_file_and_rank(piece)
       index_of_piece = @storage.index(piece)
       y = index_of_piece / 8
@@ -55,8 +61,25 @@ module Rchess
     end
 
     private
+    def move_piece(piece, new_position)
+      old = @storage.index(piece)
+      new = index_from_file_and_rank(new_position[0], new_position[1])
+      @storage[old], @storage[new] = @storage[new], @storage[old]
+    end
+
     def index_from_file_and_rank(file, rank)
       FILE_TO_X[file] + (RANK_TO_Y[rank] * BOARD_SIDE)
+    end
+
+    def find_implied_piece(piece_letter, new_position)
+      pieces = @storage.select { |piece| piece.letter == piece_letter }
+      implied_piece = pieces.select do |piece|
+        old_position = find_file_and_rank(piece)
+        piece.can_move_to_position?(old_position, new_position)
+      end
+
+      # for now assuming only one implied piece
+      implied_piece.first
     end
   end
 end

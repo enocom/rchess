@@ -56,5 +56,11 @@ describe Rchess::Board do
       expect(board.find_file_and_rank(piece1)).to eq "a1"
       expect(board.find_file_and_rank(piece2)).to eq "d2"
     end
+
+    it "moves pieces across the board" do
+      board.commit_move("nc3")
+      expect(board["b1"].name).to eq :empty
+      expect(board["c3"].name).to eq :knight
+    end
   end
 end
