@@ -11,17 +11,17 @@ describe Rchess::Board do
 
   describe "initialization" do
     it "allows access to its 64 squares with chess notation" do
-      expect(board["8a"].name).to eq :rook
-      expect(board["1d"].name).to eq :king
+      expect(board["a8"].name).to eq :rook
+      expect(board["d1"].name).to eq :king
     end
 
     it "distinguishes sides by case" do
-      expect(board["8d"].lettercase).to eq :uppercase
-      expect(board["1d"].lettercase).to eq :lowercase
+      expect(board["d8"].lettercase).to eq :uppercase
+      expect(board["d1"].lettercase).to eq :lowercase
     end
 
     it "has empty squares" do
-      expect(board["4d"].name).to eq :empty
+      expect(board["d4"].name).to eq :empty
     end
 
     it "places all the pieces in their correct positions" do
@@ -33,7 +33,7 @@ describe Rchess::Board do
     end
 
     def expect_pieces_are_placed_correctly_for_rank(rank, lettercase)
-      ("a".."h").map { |file| rank + file }
+      ("a".."h").map { |file| file + rank }
         .zip(PIECE_NAMES).each do |pos, piece|
           expect(board[pos].name).to eq piece
           expect(board[pos].lettercase).to eq lettercase
@@ -41,10 +41,20 @@ describe Rchess::Board do
     end
 
     def expect_pawns_are_placed_correctly_for_rank(rank, lettercase)
-      ("a".."h").map { |file| rank + file }.each do |pos|
+      ("a".."h").map { |file| file + rank }.each do |pos|
         expect(board[pos].name).to eq :pawn
         expect(board[pos].lettercase).to eq lettercase
       end
+    end
+  end
+
+  describe "moving pieces" do
+    it "finds the position of a piece" do
+      piece1 = board["a1"]
+      piece2 = board["d2"]
+
+      expect(board.find_file_and_rank(piece1)).to eq "a1"
+      expect(board.find_file_and_rank(piece2)).to eq "d2"
     end
   end
 end

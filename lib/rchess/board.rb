@@ -16,6 +16,11 @@ module Rchess
     }
     FILE_TO_X = Hash[("a".."h").zip(0..7)]
     BOARD_SIDE = 8
+    Y_TO_RANK = {
+      0 => "8", 1 => "7", 2 => "6", 3 => "5",
+      4 => "4", 5 => "3", 6 => "2", 7 => "1"
+    }
+    X_TO_FILE = Hash[(0..7).zip("a".."h")]
 
     def initialize
       uppercase_pieces = PIECES.map { |piece| piece.new(:uppercase) }
@@ -37,14 +42,21 @@ module Rchess
     end
 
     def [](position)
-      rank, file = position[0], position[1]
+      file, rank = position[0], position[1]
 
-      @storage[index_from_rank_and_file(rank, file)]
+      @storage[index_from_file_and_rank(file, rank)]
+    end
+
+    def find_file_and_rank(piece)
+      index_of_piece = @storage.index(piece)
+      y = index_of_piece / 8
+      x = index_of_piece % 8
+      X_TO_FILE[x] + Y_TO_RANK[y]
     end
 
     private
-    def index_from_rank_and_file(rank, file)
-      (RANK_TO_Y[rank] * BOARD_SIDE) + FILE_TO_X[file]
+    def index_from_file_and_rank(file, rank)
+      FILE_TO_X[file] + (RANK_TO_Y[rank] * BOARD_SIDE)
     end
   end
 end

@@ -40,7 +40,7 @@ module Rchess
     end
 
     def row_from_rank(board, rank)
-      ("a".."h").map { |file| rank + file }.map do |pos|
+      ("a".."h").map { |file| file + rank }.map do |pos|
         board[pos]
       end.join(" | ")
     end
