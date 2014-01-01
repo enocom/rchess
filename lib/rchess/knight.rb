@@ -1,5 +1,8 @@
+require "rchess/letter_math"
+
 module Rchess
   class Knight
+    include Rchess::LetterMath
     attr_reader :name, :lettercase
 
     def initialize(lettercase=:uppercase)
@@ -26,20 +29,6 @@ module Rchess
     end
 
     private
-    def rotate_letter(letter, offset)
-      letters = %w(a b c d e f g h)
-      index_of_current_letter = letters.index(letter)
-      rotated_index = index_of_current_letter + offset
-
-      if rotated_index > 7
-        rotated_index = rotated_index - 8
-      elsif rotated_index < 0
-        rotated_index = 8 + rotated_index
-      end
-
-      letters[rotated_index]
-    end
-
     def rank_with_offset_matches?(start_pos, end_pos, rank_offset)
       (start_pos[1].to_i + rank_offset) == end_pos[1].to_i
     end

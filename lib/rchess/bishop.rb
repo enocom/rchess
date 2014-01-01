@@ -1,5 +1,6 @@
 module Rchess
   class Bishop
+    include Rchess::LetterMath
     attr_reader :name, :lettercase
 
     def initialize(lettercase=:uppercase)
