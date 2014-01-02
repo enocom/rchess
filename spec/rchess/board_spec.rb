@@ -62,5 +62,12 @@ describe Rchess::Board do
       expect(board["b1"].name).to eq :empty
       expect(board["c3"].name).to eq :knight
     end
+
+    it "finds an implied piece by its move" do
+      board.commit_move("Pe6")
+      expect(board["e7"].name).to eq :empty
+      expect(board["e6"].name).to eq :pawn
+      expect(board["e6"].lettercase).to eq :uppercase
+    end
   end
 end
