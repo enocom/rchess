@@ -22,6 +22,11 @@ describe Rchess::Pawn do
       end
 
       it "recognizes illegal moves" do
+        %w(c6 d6 e6 e5 c5 c4 e4).each do |illegal_move|
+          expect(
+            pawn.can_move_to_position?(starting_position, illegal_move)
+          ).to eq false
+        end
       end
 
       describe "when capturing" do
