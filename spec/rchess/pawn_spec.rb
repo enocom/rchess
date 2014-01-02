@@ -11,8 +11,20 @@ describe Rchess::Pawn do
 
   describe "movement on the board" do
     let(:starting_position) { "d5" }
+
     context "uppercase pawns" do
       let(:pawn) { Rchess::Pawn.new(:uppercase) }
+
+      describe "moving for the first time" do
+        it "may move two spaces downward" do
+          home_position = "a7"
+          two_spaces_down = "a5"
+
+          expect(
+            pawn.can_move_to_position?(home_position, two_spaces_down)
+          ).to eq true
+        end
+      end
 
       it "moves downward" do
         one_square_downward = "d4"
@@ -60,6 +72,17 @@ describe Rchess::Pawn do
           expect(
             pawn.can_move_to_position?(starting_position, illegal_move)
           ).to eq false
+        end
+      end
+
+      describe "moving for the first time" do
+        it "may move two spaces upward" do
+          home_position = "a2"
+          two_spaces_down = "a4"
+
+          expect(
+            pawn.can_move_to_position?(home_position, two_spaces_down)
+          ).to eq true
         end
       end
 
