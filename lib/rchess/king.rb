@@ -26,12 +26,12 @@ module Rchess
       start_file, end_file = start_pos[0], end_pos[0]
       start_rank, end_rank = start_pos[1], end_pos[1]
 
-      (letter_difference(start_file, end_file).abs == 1 &&
-       rank_difference(start_rank, end_rank).abs == 0) ||
-      (rank_difference(start_rank, end_rank).abs == 1 &&
-       letter_difference(start_file, end_file).abs == 0) ||
-      (letter_difference(start_file, end_file).abs == 1 &&
-       rank_difference(start_rank, end_rank).abs == 1)
+      [
+        [1, 0], [0, 1], [1, 1]
+      ].map do |dx, dy|
+        (letter_difference(start_file, end_file).abs == dx) &&
+          (rank_difference(start_rank, end_rank).abs == dy)
+      end.include? true
     end
   end
 end
