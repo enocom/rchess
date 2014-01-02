@@ -50,6 +50,8 @@ module Rchess
     def commit_move(move)
       piece_letter, new_position = move[0], move[1..-1]
       piece_to_move = find_implied_piece(piece_letter, new_position)
+      return false if piece_to_move.nil?
+
       move_piece(piece_to_move, new_position)
     end
 
@@ -65,6 +67,7 @@ module Rchess
       old = @storage.index(piece)
       new = index_from_file_and_rank(new_position[0], new_position[1])
       @storage[old], @storage[new] = @storage[new], @storage[old]
+      true
     end
 
     def index_from_file_and_rank(file, rank)

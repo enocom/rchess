@@ -56,4 +56,8 @@ module ChessGameStrings
   def bad_input_message
     "\nInvalid input. Please try again.\n"
   end
+
+  def illegal_move_message
+    "\nIllegal move. Please try again.\n"
+  end
 end

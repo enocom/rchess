@@ -63,6 +63,14 @@ describe Rchess::Board do
       expect(board["c3"].name).to eq :knight
     end
 
+    it "returns true if the move succeeded" do
+      expect(board.commit_move "nc3" ).to eq true
+    end
+
+    it "returns false if no pieces were identified to be moved" do
+      expect(board.commit_move "nd5" ).to eq false
+    end
+
     it "finds an implied piece by its move" do
       board.commit_move("Pe6")
       expect(board["e7"].name).to eq :empty

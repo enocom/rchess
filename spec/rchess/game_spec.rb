@@ -36,4 +36,15 @@ describe Rchess::Game do
     expect(fake_stdout).to receive(:print).with(user_prompt)
     game.next_turn
   end
+
+  it "prints an error if the move is illegal" do
+    fake_stdin.stub(:gets).and_return("nd5\n")
+    game = Rchess::Game.new(printer, board, fake_stdin)
+
+    expect(fake_stdout).to receive(:print).with(clear_screen)
+    expect(fake_stdout).to receive(:print).with(starting_board)
+    expect(fake_stdout).to receive(:print).with(illegal_move_message)
+    expect(fake_stdout).to receive(:print).with(user_prompt)
+    game.next_turn
+  end
 end

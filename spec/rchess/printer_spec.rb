@@ -23,4 +23,10 @@ describe Rchess::Printer do
 
     printer.bad_input_message
   end
+
+  it "displays an illegal move message" do
+    expect(fake_stdout).to receive(:print).with(illegal_move_message)
+
+    printer.illegal_move_message
+  end
 end

@@ -14,19 +14,25 @@ module Rchess
 
     def play_one_turn(input=:valid)
       @printer.print_board @board
-      if input == :invalid_input
+
+      case input
+      when :invalid_input
         @printer.bad_input_message
+      when :illegal_move
+        @printer.illegal_move_message
       end
+
       @printer.prompt_user
     end
 
     def next_turn
       user_entered_position = @input.gets.chomp
-      if valid_input? user_entered_position
-        commit_move(user_entered_position)
+      if invalid_input? user_entered_position
+        play_one_turn :invalid_input
+      elsif commit_move(user_entered_position)
         play_one_turn
       else
-        play_one_turn :invalid_input
+        play_one_turn :illegal_move
       end
     end
 
@@ -35,8 +41,8 @@ module Rchess
     end
 
     private
-    def valid_input?(input)
-      input =~ /[PpRrNnBbQqKk][a-h][1-8]/
+    def invalid_input?(input)
+      input !~ /[PpRrNnBbQqKk][a-h][1-8]/
     end
   end
 end
