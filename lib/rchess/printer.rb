@@ -16,6 +16,10 @@ module Rchess
       @out.print newline + "Enter a move: "
     end
 
+    def bad_input_message
+      @out.print newline + "Invalid input. Please try again." + newline
+    end
+
     private
 
     def clear_screen

@@ -17,4 +17,10 @@ describe Rchess::Printer do
 
     printer.prompt_user
   end
+
+  it "displays a bad input message" do
+    expect(fake_stdout).to receive(:print).with(bad_input_message)
+
+    printer.bad_input_message
+  end
 end

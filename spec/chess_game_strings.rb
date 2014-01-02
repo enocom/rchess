@@ -52,4 +52,8 @@ module ChessGameStrings
   def user_prompt
     "\nEnter a move: "
   end
+
+  def bad_input_message
+    "\nInvalid input. Please try again.\n"
+  end
 end

@@ -25,4 +25,15 @@ describe Rchess::Game do
     expect(fake_stdout).to receive(:print).with(user_prompt)
     game.next_turn
   end
+
+  it "prints a warning after bad user input" do
+    fake_stdin.stub(:gets).and_return("bananas\n")
+    game = Rchess::Game.new(printer, board, fake_stdin)
+
+    expect(fake_stdout).to receive(:print).with(clear_screen)
+    expect(fake_stdout).to receive(:print).with(starting_board)
+    expect(fake_stdout).to receive(:print).with(bad_input_message)
+    expect(fake_stdout).to receive(:print).with(user_prompt)
+    game.next_turn
+  end
 end
