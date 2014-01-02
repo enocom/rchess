@@ -25,15 +25,12 @@ module Rchess
 
     def can_move_to_position?(start_pos, end_pos, option=:no_capture)
       return valid_capture_move?(start_pos, end_pos) if option == :capture
+      return true if opening_move?(start_pos, end_pos)
 
       # uppercase pawns move down
-      if uppercase?
-        return true if opening_move?(start_pos, end_pos)
-        return one_square?(:down, start_pos, end_pos)
-      end
+      return one_square?(:down, start_pos, end_pos) if uppercase?
 
       # lowercase pawns move up
-      return true if opening_move?(start_pos, end_pos)
       one_square?(:up, start_pos, end_pos)
     end
 
