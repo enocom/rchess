@@ -27,5 +27,19 @@ describe Rchess::Pawn do
         ).to eq false
       end
     end
+
+    describe "when capturing" do
+      it "allows forward diagonal movement" do
+        diagonal_left = "c6"
+        expect(
+          pawn.can_move_to_position?(starting_position, diagonal_left, :capture)
+        ).to eq true
+
+        diagonal_right = "e6"
+        expect(
+          pawn.can_move_to_position?(starting_position, diagonal_right, :capture)
+        ).to eq true
+      end
+    end
   end
 end
