@@ -16,14 +16,18 @@ module Rchess
     end
 
     def letter
-      @lettercase == :uppercase ? "P" : "p"
+      uppercase? ? "P" : "p"
+    end
+
+    def uppercase?
+      @lettercase == :uppercase
     end
 
     def can_move_to_position?(start_pos, end_pos, option=:no_capture)
       return valid_capture_move?(start_pos, end_pos) if option == :capture
 
       # uppercase pawns move down
-      if lettercase == :uppercase
+      if uppercase?
         return true if opening_move?(start_pos, end_pos)
         return one_square?(:down, start_pos, end_pos)
       end
@@ -35,7 +39,7 @@ module Rchess
 
     private
     def opening_move?(start_pos, end_pos)
-      if lettercase == :uppercase
+      if uppercase?
         return UPPERCASE_TWO_FORWARD.include?(end_pos) &&
           letter_difference(start_pos[0], end_pos[0]) == 0 &&
           rank_difference(start_pos[1], end_pos[1]) == -2
@@ -55,9 +59,7 @@ module Rchess
     end
 
     def valid_capture_move?(start_pos, end_pos)
-      if lettercase == :uppercase
-        return one_square?(:down, start_pos, end_pos, :diagonal)
-      end
+      return one_square?(:down, start_pos, end_pos, :diagonal) if uppercase?
 
       one_square?(:up, start_pos, end_pos, :diagonal)
     end
