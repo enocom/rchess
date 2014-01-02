@@ -1,5 +1,9 @@
+require "rchess/movement"
+
 module Rchess
   class Rook
+    include Rchess::Movement
+
     attr_reader :name, :lettercase
 
     def initialize(lettercase=:uppercase)
@@ -16,10 +20,7 @@ module Rchess
     end
 
     def can_move_to_position?(start_pos, end_pos)
-      start_file, start_rank = start_pos[0], start_pos[1]
-      end_file, end_rank = end_pos[0], end_pos[1]
-
-      start_rank == end_rank || start_file == end_file
+      straight_move?(start_pos, end_pos)
     end
   end
 end
