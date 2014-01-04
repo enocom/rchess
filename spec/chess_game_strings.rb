@@ -49,6 +49,40 @@ module ChessGameStrings
     board
   end
 
+  def before_capture
+    <<-board
+   + - + - + - + - + - + - + - + - +
+8  | R |   | B | K | Q |   |   | R |
+   + - + - + - + - + - + - + - + - +
+7  | P |   |   | N | P | P | B | P |
+   + - + - + - + - + - + - + - + - +
+6  |   |   | P | P |   | N | P | b |
+   + - + - + - + - + - + - + - + - +
+5  |   | P |   |   |   |   |   |   |
+   + - + - + - + - + - + - + - + - +
+4  |   |   |   | p | p |   |   |   |
+   + - + - + - + - + - + - + - + - +
+3  |   |   | n |   |   | p |   |   |
+   + - + - + - + - + - + - + - + - +
+2  | p | p | p | k | n |   | p | p |
+   + - + - + - + - + - + - + - + - +
+1  | r |   |   |   | q | b |   | r |
+   + - + - + - + - + - + - + - + - +
+     a   b   c   d   e   f   g   h
+    board
+  end
+
+  def before_capture_csv
+    # Eventually, we will support proper chess notation, e.g.,
+    # "e4,d6,d4,Nf6,Nc3,g6,Be3,Bg7,Kd2,c6,f3,b5,Nge2,Nbd7,Bh6,Bxh6"
+    #
+    # First 16 moves from:
+    # Garry Kasparov vs Veselin Topalov, 1999 (Netherlands)
+    #
+    # capturing move Bxh6
+    "pe4,Pd6,pd4,Nf6,nc3,Pg6,be3,Bg7,kd2,Pc6,pf3,Pb5,nge2,Nbd7,bh6"
+  end
+
   def user_prompt
     "\nEnter a move: "
   end
