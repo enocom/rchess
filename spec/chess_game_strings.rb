@@ -99,6 +99,29 @@ module ChessGameStrings
     board
   end
 
+  def after_capture
+    <<-board
+   + - + - + - + - + - + - + - + - +
+8  | R |   | B | K | Q |   |   | R |
+   + - + - + - + - + - + - + - + - +
+7  | P |   |   | N | P | P |   | P |
+   + - + - + - + - + - + - + - + - +
+6  |   |   | P | P |   | N | P | B |
+   + - + - + - + - + - + - + - + - +
+5  |   | P |   |   |   |   |   |   |
+   + - + - + - + - + - + - + - + - +
+4  |   |   |   | p | p |   |   |   |
+   + - + - + - + - + - + - + - + - +
+3  |   |   | n |   |   | p |   |   |
+   + - + - + - + - + - + - + - + - +
+2  | p | p | p | k | n |   | p | p |
+   + - + - + - + - + - + - + - + - +
+1  | r |   |   |   | q | b |   | r |
+   + - + - + - + - + - + - + - + - +
+     a   b   c   d   e   f   g   h
+    board
+  end
+
   def before_capture_csv
     # Eventually, we will support proper chess notation, e.g.,
     # "e4,d6,d4,Nf6,Nc3,g6,Be3,Bg7,Kd2,c6,f3,b5,Nge2,Nbd7,Bh6,Bxh6"
