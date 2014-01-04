@@ -49,6 +49,33 @@ module ChessGameStrings
     board
   end
 
+  def before_amiguous_move
+    <<-board
+   + - + - + - + - + - + - + - + - +
+8  | R | N | B | K | Q |   |   | R |
+   + - + - + - + - + - + - + - + - +
+7  | P |   |   |   | P | P | B | P |
+   + - + - + - + - + - + - + - + - +
+6  |   |   | P | P |   | N | P |   |
+   + - + - + - + - + - + - + - + - +
+5  |   | P |   |   |   |   |   |   |
+   + - + - + - + - + - + - + - + - +
+4  |   |   |   | p | p |   |   |   |
+   + - + - + - + - + - + - + - + - +
+3  |   |   | n |   | b | p |   |   |
+   + - + - + - + - + - + - + - + - +
+2  | p | p | p | k |   |   | p | p |
+   + - + - + - + - + - + - + - + - +
+1  | r |   |   |   | q | b | n | r |
+   + - + - + - + - + - + - + - + - +
+     a   b   c   d   e   f   g   h
+    board
+  end
+
+  def ambiguous_move
+    "nge2"
+  end
+
   def before_capture
     <<-board
    + - + - + - + - + - + - + - + - +
