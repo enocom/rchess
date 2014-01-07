@@ -10,6 +10,15 @@ describe Rchess::Board do
   let(:board) { Rchess::Board.new }
 
   describe "initialization" do
+    it "accepts an optional CSV string of past moves" do
+      prepopulated_board = Rchess::Board.new(before_capture_csv)
+
+      expect(prepopulated_board["f6"].name).to eq :knight
+      expect(prepopulated_board["f6"].lettercase).to eq :uppercase
+      expect(prepopulated_board["d4"].name).to eq :pawn
+      expect(prepopulated_board["d4"].lettercase).to eq :lowercase
+    end
+
     it "allows access to its 64 squares with chess notation" do
       expect(board["a8"].name).to eq :rook
       expect(board["d1"].name).to eq :king

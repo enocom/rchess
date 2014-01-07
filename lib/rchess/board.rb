@@ -22,23 +22,12 @@ module Rchess
     }
     X_TO_FILE = Hash[(0..7).zip("a".."h")]
 
-    def initialize
-      uppercase_pieces = PIECES.map { |piece| piece.new(:uppercase) }
-      uppercase_pawns  = (1..8).map { Rchess::Pawn.new(:uppercase) }
-
-      empty_row_1 = (1..8).map { Rchess::EmptySquare.new }
-      empty_row_2 = (1..8).map { Rchess::EmptySquare.new }
-      empty_row_3 = (1..8).map { Rchess::EmptySquare.new }
-      empty_row_4 = (1..8).map { Rchess::EmptySquare.new }
-
-      lowercase_pieces = PIECES.map { |piece| piece.new(:lowercase) }
-      lowercase_pawns  = (1..8).map { Rchess::Pawn.new(:lowercase) }
-
-      @storage = [
-        uppercase_pieces, uppercase_pawns,
-        empty_row_1, empty_row_2, empty_row_3, empty_row_4,
-        lowercase_pawns, lowercase_pieces
-      ].flatten
+    def initialize(board_csv="")
+      if board_csv.empty?
+        initialize_default_board
+      else
+        initialize_with_csv(board_csv)
+      end
     end
 
     def [](position)
@@ -63,6 +52,33 @@ module Rchess
     end
 
     private
+
+    def initialize_default_board
+      uppercase_pieces = PIECES.map { |piece| piece.new(:uppercase) }
+      uppercase_pawns  = (1..8).map { Rchess::Pawn.new(:uppercase) }
+
+      empty_row_1 = (1..8).map { Rchess::EmptySquare.new }
+      empty_row_2 = (1..8).map { Rchess::EmptySquare.new }
+      empty_row_3 = (1..8).map { Rchess::EmptySquare.new }
+      empty_row_4 = (1..8).map { Rchess::EmptySquare.new }
+
+      lowercase_pieces = PIECES.map { |piece| piece.new(:lowercase) }
+      lowercase_pawns  = (1..8).map { Rchess::Pawn.new(:lowercase) }
+
+      @storage = [
+        uppercase_pieces, uppercase_pawns,
+        empty_row_1, empty_row_2, empty_row_3, empty_row_4,
+        lowercase_pawns, lowercase_pieces
+      ].flatten
+    end
+
+    def initialize_with_csv(board_csv)
+      initialize_default_board
+      board_csv.split(",").each do |move|
+        commit_move move
+      end
+    end
+
     def move_piece(piece, new_position)
       old = @storage.index(piece)
       new = index_from_file_and_rank(new_position[0], new_position[1])
