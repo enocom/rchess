@@ -49,7 +49,7 @@ module ChessGameStrings
     board
   end
 
-  def before_amiguous_move
+  def ambiguous_knights_board
     <<-board
    + - + - + - + - + - + - + - + - +
 8  | R | N | B | K | Q |   |   | R |
@@ -72,7 +72,15 @@ module ChessGameStrings
     board
   end
 
+  def ambiguous_knights_csv
+    "pe4,Pd6,pd4,Nf6,nc3,Pg6,be3,Bg7,kd2,Pc6,pf3,Pb5"
+  end
+
   def ambiguous_move
+    "ne2"
+  end
+
+  def unambiguous_knight_move
     "nge2"
   end
 
@@ -137,7 +145,11 @@ module ChessGameStrings
     "\nEnter a move: "
   end
 
-  def bad_input_message
+  def resolve_move_prompt
+    "\nAmbiguous move. Try again with a file prefix.\n"
+  end
+
+  def invalid_input_message
     "\nInvalid input. Please try again.\n"
   end
 

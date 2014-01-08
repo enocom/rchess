@@ -19,9 +19,9 @@ describe Rchess::Printer do
   end
 
   it "displays a bad input message" do
-    expect(fake_stdout).to receive(:print).with(bad_input_message)
+    expect(fake_stdout).to receive(:print).with(invalid_input_message)
 
-    printer.bad_input_message
+    printer.invalid_input_message
   end
 
   it "displays an illegal move message" do

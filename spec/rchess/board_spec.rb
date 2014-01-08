@@ -11,7 +11,7 @@ describe Rchess::Board do
 
   describe "initialization" do
     it "accepts an optional CSV string of past moves" do
-      prepopulated_board = Rchess::Board.new(before_capture_csv)
+      prepopulated_board = Rchess::Board.new(ambiguous_knights_csv)
 
       expect(prepopulated_board["f6"].name).to eq :knight
       expect(prepopulated_board["f6"].lettercase).to eq :uppercase
@@ -72,12 +72,17 @@ describe Rchess::Board do
       expect(board["c3"].name).to eq :knight
     end
 
-    it "returns true if the move succeeded" do
-      expect(board.commit_move "nc3" ).to eq true
+    it "returns :success if the move succeeded" do
+      expect(board.commit_move "nc3" ).to eq :success
     end
 
-    it "returns false if no pieces were identified to be moved" do
-      expect(board.commit_move "nd5" ).to eq false
+    it "returns :illegal_move if no pieces were identified to be moved" do
+      expect(board.commit_move "nd5" ).to eq :illegal_move
+    end
+
+    it "returns :ambiguous_move if more than one piece was identified" do
+      ambiguous_board = Rchess::Board.new ambiguous_knights_csv
+      expect(ambiguous_board.commit_move ambiguous_move ).to eq :ambiguous_move
     end
 
     it "finds an implied piece by its move" do

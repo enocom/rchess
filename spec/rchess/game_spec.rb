@@ -18,24 +18,56 @@ describe Rchess::Game do
     end
   end
 
-  it "accepts user input and starts another turn" do
-    fake_stdin.stub(:gets).and_return("nc3\n")
-    game = Rchess::Game.new(printer, board, fake_stdin)
+  describe "moving pieces on the board" do
+    it "accepts user input and starts another turn" do
+      fake_stdin.stub(:gets).and_return("nc3\n")
+      game = Rchess::Game.new(printer, board, fake_stdin)
 
-    expect(fake_stdout).to receive(:print).with(clear_screen)
-    expect(fake_stdout).to receive(:print).with(knight_to_c3)
-    expect(fake_stdout).to receive(:print).with(user_prompt)
-    game.next_turn
+      expect(fake_stdout).to receive(:print).with(clear_screen)
+      expect(fake_stdout).to receive(:print).with(knight_to_c3)
+      expect(fake_stdout).to receive(:print).with(user_prompt)
+      game.next_turn
+    end
+
+    xit "allows capturing" do
+      fake_stdin.stub(:gets).and_return("Bh6\n")
+      before_capture_board = Rchess::Board.new(before_capture_csv)
+      game = Rchess::Game.new(printer, before_capture_board, fake_stdin)
+
+      expect(fake_stdout).to receive(:print).with(clear_screen)
+      expect(fake_stdout).to receive(:print).with(before_capture)
+      expect(fake_stdout).to receive(:print).with(user_prompt)
+      game.play_one_turn
+
+      expect(fake_stdout).to receive(:print).with(clear_screen)
+      expect(fake_stdout).to receive(:print).with(after_capture)
+      expect(fake_stdout).to receive(:print).with(user_prompt)
+      game.next_turn
+    end
+
+    describe "when there is more than one piece implied by a move" do
+      it "prompts the user for a more specific move" do
+        fake_stdin.stub(:gets).and_return(ambiguous_move)
+        board = Rchess::Board.new(ambiguous_knights_csv)
+        game = Rchess::Game.new(printer, board, fake_stdin)
+
+        expect(fake_stdout).to receive(:print).with(clear_screen)
+        expect(fake_stdout).to receive(:print).with(ambiguous_knights_board)
+        expect(fake_stdout).to receive(:print).with(user_prompt)
+        expect(fake_stdout).to receive(:print).with(resolve_move_prompt)
+        game.next_turn
+      end
+    end
   end
 
   describe "bad or illegal input" do
-    it "prints a warning after bad user input" do
+    it "prints a warning after invalid user input" do
       fake_stdin.stub(:gets).and_return("bananas\n")
       game = Rchess::Game.new(printer, board, fake_stdin)
 
       expect(fake_stdout).to receive(:print).with(clear_screen)
       expect(fake_stdout).to receive(:print).with(starting_board)
-      expect(fake_stdout).to receive(:print).with(bad_input_message)
+      expect(fake_stdout).to receive(:print).with(invalid_input_message)
       expect(fake_stdout).to receive(:print).with(user_prompt)
       game.next_turn
     end

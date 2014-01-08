@@ -12,14 +12,16 @@ module Rchess
       loop { next_turn }
     end
 
-    def play_one_turn(input=:valid)
+    def play_one_turn(input=:success)
       @printer.print_board @board
 
       case input
       when :invalid_input
-        @printer.bad_input_message
+        @printer.invalid_input_message
       when :illegal_move
         @printer.illegal_move_message
+      when :ambiguous_move
+        @printer.resolve_move_prompt
       end
 
       @printer.prompt_user
@@ -29,10 +31,9 @@ module Rchess
       user_entered_position = @input.gets.chomp
       if invalid_input? user_entered_position
         play_one_turn :invalid_input
-      elsif commit_move(user_entered_position)
-        play_one_turn
       else
-        play_one_turn :illegal_move
+        result = commit_move(user_entered_position)
+        play_one_turn result
       end
     end
 
