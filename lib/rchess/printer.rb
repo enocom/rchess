@@ -24,6 +24,10 @@ module Rchess
       @out.print newline + "Illegal move. Please try again." + newline
     end
 
+    def resolve_move_prompt
+      @out.print newline + "Ambiguous move. Try again with a file prefix." + newline
+    end
+
     private
 
     def clear_screen

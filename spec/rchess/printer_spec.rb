@@ -29,4 +29,10 @@ describe Rchess::Printer do
 
     printer.illegal_move_message
   end
+
+  it "prompts the user to resolve an ambiguous move" do
+    expect(fake_stdout).to receive(:print).with(resolve_move_prompt)
+
+    printer.resolve_move_prompt
+  end
 end
