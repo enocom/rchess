@@ -37,8 +37,8 @@ module Rchess
     end
 
     def commit_move(move)
-      piece_letter, new_position = move[0], move[1..-1]
-      pieces_to_move = find_implied_pieces(piece_letter, new_position)
+      piece_letter, origin, new_position = parse(move)
+      pieces_to_move = find_implied_pieces(piece_letter, origin, new_position)
       return :illegal_move if pieces_to_move.empty?
       return :ambiguous_move if pieces_to_move.count > 1
 
@@ -50,6 +50,14 @@ module Rchess
       y = index_of_piece / 8
       x = index_of_piece % 8
       X_TO_FILE[x] + Y_TO_RANK[y]
+    end
+
+    def parse(move)
+      if move.length > 3
+        return [move[0], move[1], move[2..3]]
+      end
+
+      [move[0], :no_origin, move[1..2]]
     end
 
     private
@@ -91,11 +99,22 @@ module Rchess
       FILE_TO_X[file] + (RANK_TO_Y[rank] * BOARD_SIDE)
     end
 
-    def find_implied_pieces(piece_letter, new_position)
+    def find_implied_pieces(piece_letter, origin, new_position)
+      # get all the pieces matching the letter
       pieces = @storage.select { |piece| piece.letter == piece_letter }
+
+      # get all the pieces that can move to a position
       implied_pieces = pieces.select do |piece|
         old_position = find_file_and_rank(piece)
         piece.can_move_to_position?(old_position, new_position)
+      end
+
+      # select the piece which have the specified origin
+      if origin != :no_origin
+        implied_pieces = pieces.select do |piece|
+          old_file = find_file_and_rank(piece)[0]
+          old_file == origin
+        end
       end
 
       implied_pieces

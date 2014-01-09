@@ -41,9 +41,8 @@ module Rchess
       @board.commit_move position
     end
 
-    private
     def invalid_input?(input)
-      input !~ /[PpRrNnBbQqKk][a-h][1-8]/
+      input !~ /[PpRrNnBbQqKk][a-h]{1,2}[1-8]/
     end
   end
 end

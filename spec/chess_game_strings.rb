@@ -72,8 +72,36 @@ module ChessGameStrings
     board
   end
 
+  def originating_file_board
+    <<-board
+   + - + - + - + - + - + - + - + - +
+8  | R | N | B | K | Q |   |   | R |
+   + - + - + - + - + - + - + - + - +
+7  | P |   |   |   | P | P | B | P |
+   + - + - + - + - + - + - + - + - +
+6  |   |   | P | P |   | N | P |   |
+   + - + - + - + - + - + - + - + - +
+5  |   | P |   |   |   |   |   |   |
+   + - + - + - + - + - + - + - + - +
+4  |   |   |   | p | p |   |   |   |
+   + - + - + - + - + - + - + - + - +
+3  |   |   | n |   | b | p |   |   |
+   + - + - + - + - + - + - + - + - +
+2  | p | p | p | k | n |   | p | p |
+   + - + - + - + - + - + - + - + - +
+1  | r |   |   |   | q | b |   | r |
+   + - + - + - + - + - + - + - + - +
+     a   b   c   d   e   f   g   h
+    board
+  end
+
+
   def ambiguous_knights_csv
     "pe4,Pd6,pd4,Nf6,nc3,Pg6,be3,Bg7,kd2,Pc6,pf3,Pb5"
+  end
+
+  def move_with_originating_file
+    "nge2"
   end
 
   def ambiguous_move

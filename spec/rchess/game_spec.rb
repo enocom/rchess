@@ -57,6 +57,17 @@ describe Rchess::Game do
         expect(fake_stdout).to receive(:print).with(resolve_move_prompt)
         game.next_turn
       end
+
+      it "allows a user to specify an originating file for a move" do
+        fake_stdin.stub(:gets).and_return(move_with_originating_file)
+        board = Rchess::Board.new(ambiguous_knights_csv)
+        game = Rchess::Game.new(printer, board, fake_stdin)
+
+        expect(fake_stdout).to receive(:print).with(clear_screen)
+        expect(fake_stdout).to receive(:print).with(originating_file_board)
+        expect(fake_stdout).to receive(:print).with(user_prompt)
+        game.next_turn
+      end
     end
   end
 
@@ -81,6 +92,13 @@ describe Rchess::Game do
       expect(fake_stdout).to receive(:print).with(illegal_move_message)
       expect(fake_stdout).to receive(:print).with(user_prompt)
       game.next_turn
+    end
+
+    it "recognizes invalid input" do
+      game = Rchess::Game.new(printer, board, fake_stdin)
+      expect(game.invalid_input? "ne2").to eq false
+      expect(game.invalid_input? "nge2").to eq false
+      expect(game.invalid_input? "zdg2").to eq true
     end
   end
 end

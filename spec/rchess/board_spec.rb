@@ -57,6 +57,16 @@ describe Rchess::Board do
     end
   end
 
+  describe "parsing moves" do
+    it "handles piece names and destinations" do
+      expect(board.parse("ne2")).to eq ["n", :no_origin, "e2"]
+    end
+
+    it "handles piece names, origins, and destinations" do
+      expect(board.parse("nge2")).to eq ["n", "g", "e2"]
+    end
+  end
+
   describe "moving pieces" do
     it "finds the position of a piece" do
       piece1 = board["a1"]
@@ -72,17 +82,25 @@ describe Rchess::Board do
       expect(board["c3"].name).to eq :knight
     end
 
-    it "returns :success if the move succeeded" do
-      expect(board.commit_move "nc3" ).to eq :success
+    describe "return values of a move" do
+      it "returns :success if the move succeeded" do
+        expect(board.commit_move "nc3" ).to eq :success
+      end
+
+      it "returns :illegal_move if no pieces were identified to be moved" do
+        expect(board.commit_move "nd5" ).to eq :illegal_move
+      end
+
+      it "returns :ambiguous_move if more than one piece was identified" do
+        ambiguous_board = Rchess::Board.new ambiguous_knights_csv
+        expect(ambiguous_board.commit_move ambiguous_move ).to eq :ambiguous_move
+      end
     end
 
-    it "returns :illegal_move if no pieces were identified to be moved" do
-      expect(board.commit_move "nd5" ).to eq :illegal_move
-    end
-
-    it "returns :ambiguous_move if more than one piece was identified" do
-      ambiguous_board = Rchess::Board.new ambiguous_knights_csv
-      expect(ambiguous_board.commit_move ambiguous_move ).to eq :ambiguous_move
+    it "accepts an originating file in a move" do
+      board = Rchess::Board.new(ambiguous_knights_csv)
+      expect(board.commit_move(unambiguous_knight_move)).to eq :success
+      expect(board["e2"].name).to eq :knight
     end
 
     it "finds an implied piece by its move" do
