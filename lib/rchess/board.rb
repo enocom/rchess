@@ -91,7 +91,15 @@ module Rchess
     def move_piece(piece, new_position)
       old = @storage.index(piece)
       new = index_from_file_and_rank(new_position[0], new_position[1])
-      @storage[old], @storage[new] = @storage[new], @storage[old]
+
+      # if it's a capture
+      if @storage[new].name != :empty
+        @storage[new] = @storage[old]
+        @storage[old] = Rchess::EmptySquare.new
+      else
+        @storage[old], @storage[new] = @storage[new], @storage[old]
+      end
+
       :success
     end
 

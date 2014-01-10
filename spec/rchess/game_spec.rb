@@ -29,15 +29,10 @@ describe Rchess::Game do
       game.next_turn
     end
 
-    xit "allows capturing" do
+    it "allows capturing" do
       fake_stdin.stub(:gets).and_return("Bh6\n")
       before_capture_board = Rchess::Board.new(before_capture_csv)
       game = Rchess::Game.new(printer, before_capture_board, fake_stdin)
-
-      expect(fake_stdout).to receive(:print).with(clear_screen)
-      expect(fake_stdout).to receive(:print).with(before_capture)
-      expect(fake_stdout).to receive(:print).with(user_prompt)
-      game.play_one_turn
 
       expect(fake_stdout).to receive(:print).with(clear_screen)
       expect(fake_stdout).to receive(:print).with(after_capture)

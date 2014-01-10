@@ -82,6 +82,20 @@ describe Rchess::Board do
       expect(board["c3"].name).to eq :knight
     end
 
+    xit "prevents a piece from moving if it is blocked by another piece" do
+      expect(board.commit_move("ra3")).to eq :illegal_move
+      expect(board["a3"].name).to eq :empty
+      expect(board["a1"].name).to eq :rook
+    end
+
+    xit "allows pieces to capture other pieces" do
+      before_capture = Rchess::Board.new(before_capture_csv)
+      expect(board["h6"].lettercase).to eq :lowercase
+
+      board.commit_move("Bh6")
+      expect(board["h6"].lettercase).to eq :uppercase
+    end
+
     describe "return values of a move" do
       it "returns :success if the move succeeded" do
         expect(board.commit_move "nc3" ).to eq :success
