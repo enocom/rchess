@@ -88,9 +88,9 @@ describe Rchess::Board do
       expect(board["a1"].name).to eq :rook
     end
 
-    xit "allows pieces to capture other pieces" do
+    it "allows pieces to capture other pieces" do
       before_capture = Rchess::Board.new(before_capture_csv)
-      expect(board["h6"].lettercase).to eq :lowercase
+      expect(before_capture["h6"].lettercase).to eq :lowercase
 
       board.commit_move("Bh6")
       expect(board["h6"].lettercase).to eq :uppercase
