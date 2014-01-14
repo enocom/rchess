@@ -123,9 +123,5 @@ describe Rchess::Board do
       expect(board["e6"].name).to eq :pawn
       expect(board["e6"].lettercase).to eq :uppercase
     end
-
-    it "supports castling"
-    it "supports true chess notation"
-    it "supports pawn promotion"
   end
 end
