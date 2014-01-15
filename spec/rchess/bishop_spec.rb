@@ -20,44 +20,40 @@ describe Rchess::Bishop do
       ).to eq true
     end
 
-    it "can move to the upper-left" do
-      end_position = "b7"
-      expect(
-        bishop.can_move_to_position?(starting_point, end_position)
-      ).to eq true
+    context "legal moves" do
+      [
+        ["f7", "upper right"],
+        ["b7", "upper left"],
+        ["g2", "lower right"],
+        ["b3", "lower left"]
+      ].each do |end_position, direction|
+        it "can move to the #{direction}" do
+          expect(
+            bishop.can_move_to_position?(starting_point, end_position)
+          ).to eq true
+        end
+      end
+
+      it "can move one square or multiple squares" do
+        one_square = "e6"
+        expect(
+          bishop.can_move_to_position?(starting_point, one_square)
+        ).to eq true
+
+        two_squares = "g8"
+        expect(
+          bishop.can_move_to_position?(starting_point, two_squares)
+        ).to eq true
+      end
     end
 
-    it "can move to the lower-right" do
-      end_position = "g2"
-      expect(
-        bishop.can_move_to_position?(starting_point, end_position)
-      ).to eq true
-    end
-
-    it "can move to the lower-left" do
-      end_position = "b3"
-      expect(
-        bishop.can_move_to_position?(starting_point, end_position)
-      ).to eq true
-    end
-
-    it "can move one square or multiple squares" do
-      one_square = "e6"
-      expect(
-        bishop.can_move_to_position?(starting_point, one_square)
-      ).to eq true
-
-      two_squares = "g8"
-      expect(
-        bishop.can_move_to_position?(starting_point, two_squares)
-      ).to eq true
-    end
-
-    it "recognizes illegal moves" do
-      illegal_move = "a5"
-      expect(
-        bishop.can_move_to_position?(starting_point, illegal_move)
-      ).to eq false
+    context "illegal moves" do
+      it "recognizes illegal moves" do
+        illegal_move = "a5"
+        expect(
+          bishop.can_move_to_position?(starting_point, illegal_move)
+        ).to eq false
+      end
     end
   end
 end
