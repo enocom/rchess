@@ -48,4 +48,17 @@ describe Rchess::BoardMath do
       expect(rank_difference("7", "2")).to eq -5
     end
   end
+
+  describe "finding intermediate positions" do
+    [
+      ["upper right", "d5", "g8", ["e6", "f7"]],
+      ["upper left", "d5", "a8", ["c6", "b7"]],
+      ["lower right", "d5", "g2", ["e4", "f3"]],
+      ["lower left", "d5", "a2", ["c4", "b3"]]
+    ].each do |direction, a, b, intermediate|
+      it "finds positions squares leading to the #{direction}" do
+        expect(find_intermediate_between(a, b)).to eq intermediate
+      end
+    end
+  end
 end
