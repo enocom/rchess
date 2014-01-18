@@ -15,11 +15,11 @@ describe Rchess::Bishop do
 
     context "identifying intermediate positions" do
         [
-          ["g8", ["e6", "f7"], "upper right"],
-          ["a8", ["c6", "b7"], "upper left"],
-          ["g2", ["e4", "f3"], "lower right"],
-          ["a2", ["c4", "b3"], "lower left"]
-        ].each do |end_position, intermediate_squares, direction|
+          ["upper right", "g8", ["e6", "f7"]],
+          ["upper left", "a8", ["c6", "b7"]],
+          ["lower right", "g2", ["e4", "f3"]],
+          ["lower left", "a2", ["c4", "b3"]]
+        ].each do |direction, end_position, intermediate_squares|
         it "returns a list of positions when moving to the #{direction}" do
           expect(
             bishop.intermediate_positions(starting_point, end_position)
