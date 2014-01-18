@@ -16,10 +16,7 @@ module Rchess
     end
 
     def letter_difference(start_file, end_file)
-      start_index = LETTERS.index(start_file)
-      end_index = LETTERS.index(end_file)
-
-      end_index - start_index
+      LETTERS.index(end_file) - LETTERS.index(start_file)
     end
 
     def rank_difference(start_rank, end_rank)
