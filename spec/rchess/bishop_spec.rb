@@ -13,11 +13,19 @@ describe Rchess::Bishop do
     let(:bishop) { Rchess::Bishop.new(:uppercase) }
     let(:starting_point) { "d5" }
 
-    it "can move to the upper-right" do
-      end_position = "f7"
-      expect(
-        bishop.can_move_to_position?(starting_point, end_position)
-      ).to eq true
+    context "identifying intermediate positions" do
+        [
+          ["g8", ["e6", "f7"], "upper right"],
+          ["a8", ["c6", "b7"], "upper left"],
+          ["g2", ["e4", "f3"], "lower right"],
+          ["a2", ["c4", "b3"], "lower left"]
+        ].each do |end_position, intermediate_squares, direction|
+        it "returns a list of positions when moving to the #{direction}" do
+          expect(
+            bishop.intermediate_positions(starting_point, end_position)
+          ).to eq intermediate_squares
+        end
+      end
     end
 
     context "legal moves" do

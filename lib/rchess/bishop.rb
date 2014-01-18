@@ -19,5 +19,9 @@ module Rchess
     def can_move_to_position?(start_pos, end_pos)
       diagonal_move?(start_pos, end_pos)
     end
+
+    def intermediate_positions(start_pos, end_pos)
+      find_intermediate_between(start_pos, end_pos)
+    end
   end
 end
