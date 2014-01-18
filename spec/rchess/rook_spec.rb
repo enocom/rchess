@@ -14,24 +14,15 @@ describe Rchess::Rook do
   describe "movement on the board" do
     let(:starting_point) { "d5" }
 
-    it "can move foward" do
-      forward = "d6"
-      expect(rook.can_move_to_position? starting_point, forward).to eq true
-    end
-
-    it "can move backward" do
-      backward = "d4"
-      expect(rook.can_move_to_position? starting_point, backward).to eq true
-    end
-
-    it "can move left" do
-      left = "e5"
-      expect(rook.can_move_to_position? starting_point, left).to eq true
-    end
-
-    it "can move right" do
-      right = "c5"
-      expect(rook.can_move_to_position? starting_point, right).to eq true
+    [
+      [:forward, :d6],
+      [:backward, :d4],
+      [:left, :e5],
+      [:right, :c5]
+    ].each do |direction, end_pos|
+      it "can move #{direction}" do
+        expect(rook.can_move_to_position? starting_point, end_pos).to eq true
+      end
     end
 
     it "recognizes illegal moves" do
