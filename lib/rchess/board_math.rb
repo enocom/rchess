@@ -71,40 +71,27 @@ module Rchess
     end
 
     def intermediate_ranks(start_rank, rank_difference)
-      rank_memo = []
-      rank = start_rank.to_i
-      rank_difference.abs.times do
-        result = rank + (rank_difference > 0 ? 1 : -1)
-        rank_memo << result
-        rank = result
+      intermediate_squares(start_rank.to_i, rank_difference) do |rank, diff|
+        rank + (rank_difference > 0 ? 1 : -1)
       end
-
-      rank_memo
-    end
-
-    def intermediate_squares(start, difference, &block)
-      rank_memo = []
-      rank = start_rank.to_i
-      rank_difference.abs.times do
-        result = rank + (rank_difference > 0 ? 1 : -1)
-        rank_memo << result
-        rank = result
-      end
-
-      rank_memo
     end
 
     def intermediate_files(start_file, file_difference)
-      file_memo = []
-      letter = start_file
-      file_difference.abs.times do
-        rotation_direction = file_difference > 0 ? 1 : -1
-        result = rotate_letter(letter, rotation_direction)
-        file_memo << result
-        letter = result
+      intermediate_squares(start_file, file_difference) do |file, diff|
+        rotate_letter(file, file_difference > 0 ? 1 : -1)
+      end
+    end
+
+    def intermediate_squares(start, difference, &lookup_next)
+      memo = []
+      rank = start
+      difference.abs.times do
+        result = lookup_next.call(rank, difference)
+        memo << result
+        rank = result
       end
 
-      file_memo
+      memo
     end
   end
 end
