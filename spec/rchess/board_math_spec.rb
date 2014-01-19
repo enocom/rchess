@@ -64,5 +64,20 @@ describe Rchess::BoardMath do
         end
       end
     end
+
+    context "straight movements" do
+      [
+        ["right",    "g5", ["e5", "f5"]],
+        ["left",     "a5", ["c5", "b5"]],
+        ["forward",  "d8", ["d6", "d7"]],
+        ["backward", "d2", ["d4", "d3"]]
+      ].each do |direction, end_pos, intermediate|
+        it "finds squares leading to the #{direction}" do
+          expect(
+            find_intermediate_between(start, end_pos, :straight)
+          ).to eq intermediate
+        end
+      end
+    end
   end
 end
