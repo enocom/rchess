@@ -46,30 +46,14 @@ module Rchess
           rank_difference -= 1
         end
 
-        rank_memo = []
-        rank = start_rank.to_i
-        rank_difference.abs.times do
-          result = rank + (rank_difference > 0 ? 1 : -1)
-          rank_memo << result
-          rank = result
-        end
-
+        rank_memo = intermediate_ranks(start_rank, rank_difference)
         return rank_memo.map { |rank| start_file + rank.to_s }
       end
 
       # it's horizontal
       difference = letter_difference(start_file, end_file)
       file_difference = difference > 0 ? difference - 1 : difference + 1
-
-      file_memo = []
-      letter = start_file
-      file_difference.abs.times do
-        rotation_direction = file_difference > 0 ? 1 : -1
-        result = rotate_letter(letter, rotation_direction)
-        file_memo << result
-        letter = result
-      end
-
+      file_memo = intermediate_files(start_file, file_difference)
       file_memo.map { |file| file + start_rank }
     end
 
@@ -80,6 +64,37 @@ module Rchess
       difference = letter_difference(start_file, end_file)
       file_difference = difference > 0 ? difference - 1 : difference + 1
 
+      file_memo = intermediate_files(start_file, file_difference)
+      rank_difference = rank_difference(start_rank, end_rank) - 1
+      rank_memo = intermediate_ranks(start_rank, rank_difference)
+      file_memo.zip(rank_memo).flatten.each_slice(2).map { |el| el.join("") }
+    end
+
+    def intermediate_ranks(start_rank, rank_difference)
+      rank_memo = []
+      rank = start_rank.to_i
+      rank_difference.abs.times do
+        result = rank + (rank_difference > 0 ? 1 : -1)
+        rank_memo << result
+        rank = result
+      end
+
+      rank_memo
+    end
+
+    def intermediate_squares(start, difference, &block)
+      rank_memo = []
+      rank = start_rank.to_i
+      rank_difference.abs.times do
+        result = rank + (rank_difference > 0 ? 1 : -1)
+        rank_memo << result
+        rank = result
+      end
+
+      rank_memo
+    end
+
+    def intermediate_files(start_file, file_difference)
       file_memo = []
       letter = start_file
       file_difference.abs.times do
@@ -89,17 +104,7 @@ module Rchess
         letter = result
       end
 
-      rank_difference = rank_difference(start_rank, end_rank) - 1
-
-      rank_memo = []
-      rank = start_rank.to_i
-      rank_difference.abs.times do
-        result = rank + (rank_difference > 0 ? 1 : -1)
-        rank_memo << result
-        rank = result
-      end
-
-      file_memo.zip(rank_memo).flatten.each_slice(2).map { |el| el.join("") }
+      file_memo
     end
   end
 end
