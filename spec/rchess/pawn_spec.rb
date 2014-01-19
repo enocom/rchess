@@ -12,6 +12,34 @@ describe Rchess::Pawn do
   describe "movement on the board" do
     let(:starting_position) { "d5" }
 
+    context "intermediate positions" do
+      let(:pawn) { Rchess::Pawn.new(:uppercase) }
+
+      context "when not taking its opening move" do
+        it "identifies all intermediate positions" do
+          expect(pawn.intermediate_positions(starting_position, "d6")).to eq []
+        end
+      end
+
+      context "when taking its opening move" do
+        describe "as an uppercase pawn" do
+          it "identifies all intermediate positions" do
+            expect(pawn.intermediate_positions("a2", "a4")).to eq ["a3"]
+          end
+        end
+
+        describe "as a lowercase pawn" do
+          lowercase_pawn = Rchess::Pawn.new(:lowercase)
+
+          it "identifies all intermediate positions" do
+            expect(
+              lowercase_pawn.intermediate_positions("a7", "a5")
+            ).to eq ["a6"]
+          end
+        end
+      end
+    end
+
     context "uppercase pawns" do
       let(:pawn) { Rchess::Pawn.new(:uppercase) }
 

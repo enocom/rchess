@@ -34,6 +34,10 @@ module Rchess
       one_square?(:up, start_pos, end_pos)
     end
 
+    def intermediate_positions(start_pos, end_pos)
+      find_intermediate_between(start_pos, end_pos, :straight)
+    end
+
     private
     def valid_opening_move?(start_pos, end_pos)
       if uppercase?
