@@ -82,16 +82,10 @@ module Rchess
       end
     end
 
-    def intermediate_squares(start, difference, &lookup_next)
-      memo = []
-      rank = start
-      difference.abs.times do
-        result = lookup_next.call(rank, difference)
-        memo << result
-        rank = result
+    def intermediate_squares(rank, difference, &lookup_next)
+      difference.abs.times.map do
+        rank = lookup_next.call(rank, difference)
       end
-
-      memo
     end
   end
 end
