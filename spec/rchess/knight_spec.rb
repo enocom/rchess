@@ -13,6 +13,9 @@ describe Rchess::Knight do
     let(:knight) { Rchess::Knight.new(:uppercase) }
     let(:start_position) { "d5" }
 
+    it "identifies no intermediate positions and jumps other pieces" do
+      expect(knight.intermediate_positions(start_position, "b6")).to eq []
+    end
     it "recognizes illegal moves" do
       illegal_move = "c5"
       expect(

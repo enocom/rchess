@@ -22,6 +22,10 @@ module Rchess
       el_shaped_move?(start_pos, end_pos)
     end
 
+    def intermediate_positions(start_pos, end_pos)
+      []
+    end
+
     private
     def el_shaped_move?(start_pos, end_pos)
       [
