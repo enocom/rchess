@@ -26,6 +26,18 @@ module ChessGameStrings
     board
   end
 
+  def raw_board
+"R N B K Q B N R 
+P P P P P P P P 
+* * * * * * * * 
+* * * * * * * * 
+* * * * * * * * 
+* * * * * * * * 
+p p p p p p p p 
+r n b k q b n r "
+  end
+
+
   def knight_to_c3
     <<-board
    + - + - + - + - + - + - + - + - +
@@ -113,6 +125,7 @@ module ChessGameStrings
   end
 
   def before_capture
+    # "pe4,Pd6,pd4,Nf6,nc3,Pg6,be3,Bg7,kd2,Pc6,pf3,Pb5,nge2,Nbd7,bh6"
     <<-board
    + - + - + - + - + - + - + - + - +
 8  | R |   | B | K | Q |   |   | R |

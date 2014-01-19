@@ -124,4 +124,8 @@ describe Rchess::Board do
       expect(board["e6"].lettercase).to eq :uppercase
     end
   end
+
+  it "presents itself in the form of a board" do
+    expect(board.to_s).to eq raw_board
+  end
 end

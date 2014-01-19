@@ -60,6 +60,13 @@ module Rchess
       [move[0], :no_origin, move[1..2]]
     end
 
+    def to_s
+      # for debug purposes
+      @storage.each_slice(8).map do |row|
+        row.map { |square| "#{square.name == :empty ? "*" : square } " }.join("")
+      end.join("\n")
+    end
+
     private
 
     def initialize_default_board
