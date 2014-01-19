@@ -63,6 +63,13 @@ describe Rchess::BoardMath do
           expect(find_intermediate_between(start, end_pos)).to eq intermediate
         end
       end
+
+      it "returns an empty array for one square moves" do
+        expect(find_intermediate_between(start, "e6")).to eq []
+        expect(find_intermediate_between(start, "c6")).to eq []
+        expect(find_intermediate_between(start, "c4")).to eq []
+        expect(find_intermediate_between(start, "e4")).to eq []
+      end
     end
 
     context "straight movements" do
@@ -77,6 +84,13 @@ describe Rchess::BoardMath do
             find_intermediate_between(start, end_pos, :straight)
           ).to eq intermediate
         end
+      end
+
+      it "returns an empty array for one square moves" do
+        expect(find_intermediate_between(start, "d6", :straight)).to eq []
+        expect(find_intermediate_between(start, "d4", :straight)).to eq []
+        expect(find_intermediate_between(start, "c5", :straight)).to eq []
+        expect(find_intermediate_between(start, "e5", :straight)).to eq []
       end
     end
   end
