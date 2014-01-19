@@ -33,32 +33,17 @@ describe Rchess::Queen do
         ).to eq true
       end
 
-      it "moves to the upper-right" do
-        ending_position = "g8"
-        expect(
-          queen.can_move_to_position?(starting_pos, ending_position)
-        ).to eq true
-      end
-
-      it "moves to the lower-right" do
-        ending_position = "g2"
-        expect(
-          queen.can_move_to_position?(starting_pos, ending_position)
-        ).to eq true
-      end
-
-      it "moves to the upper-left" do
-        ending_position = "b7"
-        expect(
-          queen.can_move_to_position?(starting_pos, ending_position)
-        ).to eq true
-      end
-
-      it "moves to the lower-left" do
-        ending_position = "a2"
-        expect(
-          queen.can_move_to_position?(starting_pos, ending_position)
-        ).to eq true
+      [
+        ["upper-right", "g8"],
+        ["lower-right", "g2"],
+        ["upper-left",  "b7"],
+        ["lower-left",  "a2"]
+      ].each do |direction, ending_position|
+        it "moves to the #{direction}" do
+          expect(
+            queen.can_move_to_position?(starting_pos, ending_position)
+          ).to eq true
+        end
       end
     end
 
@@ -75,32 +60,17 @@ describe Rchess::Queen do
         ).to eq true
       end
 
-      it "moves up" do
-        ending_position = "d7"
-        expect(
-          queen.can_move_to_position?(starting_pos, ending_position)
-        ).to eq true
-      end
-
-      it "moves down" do
-        ending_position = "d3"
-        expect(
-          queen.can_move_to_position?(starting_pos, ending_position)
-        ).to eq true
-      end
-
-      it "moves left" do
-        ending_position = "a5"
-        expect(
-          queen.can_move_to_position?(starting_pos, ending_position)
-        ).to eq true
-      end
-
-      it "moves right" do
-        ending_position = "h5"
-        expect(
-          queen.can_move_to_position?(starting_pos, ending_position)
-        ).to eq true
+      [
+        ["up", "d7"],
+        ["down", "d3"],
+        ["left", "a5"],
+        ["right", "h5"]
+      ].each do |direction, ending_position|
+        it "moves #{direction}" do
+          expect(
+            queen.can_move_to_position?(starting_pos, ending_position)
+          ).to eq true
+        end
       end
     end
   end
