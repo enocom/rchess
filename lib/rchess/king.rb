@@ -21,6 +21,10 @@ module Rchess
       one_square_move?(start_pos, end_pos)
     end
 
+    def intermediate_positions(start_pos, end_pos)
+      []
+    end
+
     private
     def one_square_move?(start_pos, end_pos)
       start_file, end_file = start_pos[0], end_pos[0]

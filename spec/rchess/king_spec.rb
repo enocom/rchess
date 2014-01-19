@@ -13,6 +13,10 @@ describe Rchess::King do
     let(:king) { Rchess::King.new(:uppercase) }
     let(:starting_point) { "d5" }
 
+    it "identifies no intermediate positions" do
+      expect(king.intermediate_positions("d5", "d6")).to eq []
+    end
+
     it "moves one square vertically or horizontally" do
       %w(d6 d4 c5 e5).each do |new_position|
         expect(
