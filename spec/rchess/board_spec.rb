@@ -121,6 +121,8 @@ describe Rchess::Board do
         ambiguous_board = Rchess::Board.new ambiguous_knights_csv
         expect(ambiguous_board.commit_move ambiguous_move ).to eq :ambiguous_move
       end
+
+      it "does not return :ambiguous_move if one of the two pieces is blocked"
     end
 
     it "accepts an originating file in a move" do
