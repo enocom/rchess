@@ -72,13 +72,13 @@ module Rchess
 
     def intermediate_ranks(start_rank, rank_difference)
       intermediate_squares(start_rank.to_i, rank_difference) do |rank, diff|
-        rank + (rank_difference > 0 ? 1 : -1)
+        rank + (diff > 0 ? 1 : -1)
       end
     end
 
     def intermediate_files(start_file, file_difference)
       intermediate_squares(start_file, file_difference) do |file, diff|
-        rotate_letter(file, file_difference > 0 ? 1 : -1)
+        rotate_letter(file, diff > 0 ? 1 : -1)
       end
     end
 
