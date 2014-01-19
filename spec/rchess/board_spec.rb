@@ -82,18 +82,30 @@ describe Rchess::Board do
       expect(board["c3"].name).to eq :knight
     end
 
-    xit "prevents a piece from moving if it is blocked by another piece" do
+    it "prevents a piece from moving if it is blocked by another piece" do
       expect(board.commit_move("ra3")).to eq :illegal_move
       expect(board["a3"].name).to eq :empty
       expect(board["a1"].name).to eq :rook
     end
 
-    it "allows pieces to capture other pieces" do
-      before_capture = Rchess::Board.new(before_capture_csv)
-      expect(before_capture["h6"].lettercase).to eq :lowercase
+    it "allows knights to jump over pieces" do
+      expect(board.commit_move("nc3")).to eq :success
+      expect(board["c3"].name).to eq :knight
+      expect(board["b1"].name).to eq :empty
+    end
 
-      board.commit_move("Bh6")
-      expect(board["h6"].lettercase).to eq :uppercase
+    context "capturing pieces" do
+      it "allows for the capture of opposing pieces" do
+        before_capture = Rchess::Board.new(before_capture_csv)
+        expect(before_capture["h6"].lettercase).to eq :lowercase
+
+        before_capture.commit_move("Bh6")
+        expect(before_capture["h6"].lettercase).to eq :uppercase
+      end
+
+      it "does not allow for the capture of pieces of the same case"
+
+      it "allows pawns to capture"
     end
 
     describe "return values of a move" do

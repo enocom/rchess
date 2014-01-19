@@ -39,8 +39,10 @@ module Rchess
     def commit_move(move)
       piece_letter, origin, new_position = parse(move)
       pieces_to_move = find_implied_pieces(piece_letter, origin, new_position)
+
       return :illegal_move if pieces_to_move.empty?
       return :ambiguous_move if pieces_to_move.count > 1
+      return :illegal_move if blocked?(pieces_to_move.first, new_position)
 
       move_piece(pieces_to_move.first, new_position)
     end
@@ -133,6 +135,23 @@ module Rchess
       end
 
       implied_pieces
+    end
+
+    def blocked?(piece, move)
+      # knights can always jump over pieces
+      return false if piece.name == :knight
+
+      start = find_file_and_rank(piece)
+      intermediate_positions = piece.intermediate_positions(start, move)
+
+      # lookup intermediate indices
+      intermediate_indices = intermediate_positions.map do |pos|
+        index_from_file_and_rank(pos[0], pos[1])
+      end
+
+      intermediate_indices.any? do |i|
+        @storage[i].name != :empty
+      end
     end
   end
 end
